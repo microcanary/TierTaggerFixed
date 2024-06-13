@@ -41,7 +41,7 @@ public final class PlayerInfo {
 
     public static CompletableFuture<PlayerInfo> get(HttpClient client, UUID uuid) {
         String endpoint = TierTagger.getManager().getConfig().getApiUrl() + "/profile/" + uuid.toString().replace("-", "");
-        final HttpRequest request = HttpRequest.newBuilder(URI.create(endpoint)).GET().build();
+        final HttpRequest request = HttpRequest.newBuilder(URI.create(endpoint)).header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36").GET().build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
@@ -50,7 +50,7 @@ public final class PlayerInfo {
 
     public static CompletableFuture<PlayerInfo> search(HttpClient client, String query) {
         String endpoint = TierTagger.getManager().getConfig().getApiUrl() + "/search_profile/" + query;
-        final HttpRequest request = HttpRequest.newBuilder(URI.create(endpoint)).GET().build();
+        final HttpRequest request = HttpRequest.newBuilder(URI.create(endpoint)).header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36").GET().build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
